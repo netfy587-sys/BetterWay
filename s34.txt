@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basketball — The Complete Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#121014;
+    --ink-soft:#1b1720;
+    --panel:#221b1a;
+    --wood:#8b5a2b;
+    --wood-light:#c48a46;
+    --wood-pale:#e7c896;
+    --rim:#e1531f;
+    --chalk:#f1ecdf;
+    --chalk-dim:#b9b2a0;
+    --line-red:#a6303a;
+    --max:700px;
+    --wide:1080px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--chalk);
+    font-family:"Source Serif 4", Georgia, serif;
+    line-height:1.65;
+    font-size:18px;
+  }
+
+  h1,h2,h3,.display{
+    font-family:"Big Shoulders Display", sans-serif;
+    text-transform:uppercase;
+    letter-spacing:0.01em;
+    color:var(--chalk);
+    margin:0;
+  }
+
+  a{color:var(--wood-light);}
+  a:focus-visible, button:focus-visible, .chapter-link:focus-visible{
+    outline:3px solid var(--rim);
+    outline-offset:3px;
+  }
+
+  img,svg{max-width:100%;display:block;}
+
+  .wrap{
+    max-width:var(--max);
+    margin:0 auto;
+    padding:0 24px;
+  }
+  .wrap-wide{
+    max-width:var(--wide);
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* ---------- NAV ---------- */
+  .courtnav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(18,16,20,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(241,236,223,0.12);
+  }
+  .courtnav-inner{
+    max-width:var(--wide);
+    margin:0 auto;
+    padding:14px 24px;
+    display:flex;
+    align-items:center;
+    gap:22px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .courtnav-inner::-webkit-scrollbar{display:none;}
+  .courtnav-mark{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex:0 0 auto;
+    font-family:"Big Shoulders Display",sans-serif;
+    font-weight:700;
+    font-size:1.05rem;
+    letter-spacing:0.04em;
+    color:var(--chalk);
+    white-space:nowrap;
+  }
+  .courtnav-mark svg{width:22px;height:22px;}
+  .chapter-link{
+    flex:0 0 auto;
+    color:var(--chalk-dim);
+    text-decoration:none;
+    font-size:0.82rem;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    font-family:"Big Shoulders Display",sans-serif;
+    white-space:nowrap;
+    border-bottom:2px solid transparent;
+    padding-bottom:2px;
+  }
+  .chapter-link:hover{color:var(--wood-light); border-color:var(--wood-light);}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;
+    padding:72px 24px 40px;
+    overflow:hidden;
+    background:radial-gradient(120% 90% at 50% 0%, #241a12 0%, var(--ink) 62%);
+  }
+  .hero-inner{
+    max-width:var(--wide);
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.1fr 0.9fr;
+    gap:36px;
+    align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(3.2rem, 9vw, 6.4rem);
+    line-height:0.86;
+    font-weight:900;
+  }
+  .hero h1 span{
+    display:block;
+    color:var(--rim);
+  }
+  .hero-tag{
+    margin-top:18px;
+    max-width:46ch;
+    color:var(--chalk-dim);
+    font-size:1.08rem;
+  }
+  .hero-court{width:100%; height:auto;}
+
+  /* ---------- SCOREBOARD STRIP ---------- */
+  .scoreboard{
+    background:var(--panel);
+    border-top:1px solid rgba(241,236,223,0.1);
+    border-bottom:1px solid rgba(241,236,223,0.1);
+  }
+  .scoreboard-inner{
+    max-width:var(--wide);
+    margin:0 auto;
+    padding:26px 24px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    text-align:left;
+  }
+  .stat-num{
+    font-family:"Big Shoulders Display",sans-serif;
+    font-weight:900;
+    font-size:2.3rem;
+    color:var(--wood-light);
+    line-height:1;
+  }
+  .stat-label{
+    font-size:0.78rem;
+    color:var(--chalk-dim);
+    text-transform:uppercase;
+    letter-spacing:0.05em;
+    margin-top:6px;
+    font-family:"Big Shoulders Display",sans-serif;
+  }
+
+  /* ---------- DIVIDER ---------- */
+  .divider{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    max-width:var(--wide);
+    margin:0 auto;
+    padding:56px 24px 0;
+  }
+  .divider .line{
+    flex:1;
+    height:0;
+    border-top:2px dashed rgba(241,236,223,0.25);
+  }
+  .divider .ball{
+    width:20px;height:20px;flex:0 0 auto;
+  }
+
+  /* ---------- CHAPTERS ---------- */
+  .chapter{
+    padding:34px 24px 10px;
+  }
+  .chapter-head{
+    max-width:var(--max);
+    margin:0 auto 22px;
+    display:flex;
+    align-items:baseline;
+    gap:16px;
+  }
+  .chapter-num{
+    font-family:"Big Shoulders Display",sans-serif;
+    font-weight:900;
+    font-size:2.6rem;
+    color:var(--wood);
+    line-height:1;
+  }
+  .chapter-head h2{
+    font-size:clamp(1.7rem,4vw,2.5rem);
+    font-weight:700;
+  }
+  .chapter p{
+    max-width:var(--max);
+    margin:0 auto 18px;
+    color:var(--chalk);
+  }
+  .chapter p.lede{
+    font-size:1.12rem;
+    color:var(--chalk);
+  }
+  .chapter ul, .chapter ol{
+    max-width:var(--max);
+    margin:0 auto 20px;
+    padding-left:22px;
+    color:var(--chalk);
+  }
+  .chapter li{margin-bottom:8px;}
+  .chapter figure{
+    max-width:var(--max);
+    margin:28px auto;
+  }
+  .chapter figcaption{
+    font-size:0.85rem;
+    color:var(--chalk-dim);
+    margin-top:10px;
+    font-family:"Big Shoulders Display",sans-serif;
+    letter-spacing:0.02em;
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline{
+    max-width:var(--max);
+    margin:30px auto;
+    border-left:2px solid var(--wood);
+    padding-left:24px;
+  }
+  .tl-item{margin-bottom:26px; position:relative;}
+  .tl-item::before{
+    content:"";
+    position:absolute;
+    left:-30px;
+    top:6px;
+    width:11px;height:11px;
+    border-radius:50%;
+    background:var(--rim);
+  }
+  .tl-year{
+    font-family:"Big Shoulders Display",sans-serif;
+    font-weight:700;
+    color:var(--wood-light);
+    font-size:1.25rem;
+  }
+  .tl-item p{margin:4px 0 0;}
+
+  /* ---------- SKILL GRID ---------- */
+  .skill-grid{
+    max-width:var(--max);
+    margin:26px auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  .skill-card{
+    background:var(--panel);
+    border:1px solid rgba(241,236,223,0.1);
+    padding:18px;
+  }
+  .skill-card svg{width:36px;height:36px;margin-bottom:10px;}
+  .skill-card h3{
+    font-size:1.15rem;
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .skill-card p{margin:0; font-size:0.98rem; color:var(--chalk-dim); max-width:none;}
+
+  /* ---------- POSITIONS ---------- */
+  .pos-layout{
+    max-width:var(--wide);
+    margin:20px auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:34px;
+    align-items:center;
+  }
+  .pos-list{list-style:none; margin:0; padding:0; max-width:none;}
+  .pos-list li{
+    display:flex;
+    gap:14px;
+    padding:12px 0;
+    border-bottom:1px solid rgba(241,236,223,0.1);
+  }
+  .pos-dot{
+    flex:0 0 auto;
+    width:26px;height:26px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Big Shoulders Display",sans-serif;
+    font-weight:700;
+    font-size:0.82rem;
+    color:var(--ink);
+    background:var(--wood-light);
+  }
+  .pos-text b{display:block; font-family:"Big Shoulders Display",sans-serif; letter-spacing:0.02em; font-size:1.05rem; font-weight:700;}
+  .pos-text span{color:var(--chalk-dim); font-size:0.95rem;}
+
+  /* ---------- LEAGUE TABLE ---------- */
+  .league-list{
+    max-width:var(--max);
+    margin:20px auto;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .league-row{
+    display:grid;
+    grid-template-columns:110px 1fr;
+    gap:16px;
+    padding:16px 0;
+    border-bottom:1px solid rgba(241,236,223,0.1);
+  }
+  .league-row .yr{
+    font-family:"Big Shoulders Display",sans-serif;
+    font-weight:900;
+    color:var(--wood-light);
+    font-size:1.3rem;
+  }
+  .league-row h3{font-size:1.1rem; margin-bottom:4px; font-weight:700;}
+  .league-row p{margin:0; max-width:none; color:var(--chalk-dim); font-size:0.98rem;}
+
+  /* ---------- PLAYER CARDS ---------- */
+  .player-list{
+    max-width:var(--max);
+    margin:20px auto;
+    display:flex;
+    flex-direction:column;
+    gap:22px;
+  }
+  .player-card{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:16px;
+  }
+  .player-num{
+    font-family:"Big Shoulders Display",sans-serif;
+    font-weight:900;
+    font-size:2.2rem;
+    color:var(--wood);
+    line-height:1;
+    border-right:2px solid var(--wood);
+    padding-right:14px;
+  }
+  .player-card h3{font-size:1.15rem; font-weight:700; margin-bottom:4px;}
+  .player-card p{margin:0; max-width:none; color:var(--chalk-dim);}
+
+  /* ---------- GLOSSARY ---------- */
+  .glossary{
+    max-width:var(--wide);
+    margin:24px auto;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0 40px;
+  }
+  .gloss-item{padding:14px 0; border-bottom:1px solid rgba(241,236,223,0.1);}
+  .gloss-item dt{
+    font-family:"Big Shoulders Display",sans-serif;
+    font-weight:700;
+    letter-spacing:0.02em;
+    color:var(--wood-light);
+    font-size:1.02rem;
+  }
+  .gloss-item dd{margin:4px 0 0; color:var(--chalk-dim); font-size:0.95rem;}
+
+  /* ---------- CALLOUT ---------- */
+  .callout{
+    max-width:var(--max);
+    margin:26px auto;
+    padding:20px 22px;
+    background:var(--panel);
+    border-left:4px solid var(--rim);
+  }
+  .callout p{margin:0; max-width:none;}
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    margin-top:60px;
+    padding:40px 24px 60px;
+    border-top:1px solid rgba(241,236,223,0.12);
+    background:var(--ink-soft);
+  }
+  footer .wrap{color:var(--chalk-dim); font-size:0.9rem;}
+  footer .wrap p{max-width:none;}
+
+  @media (max-width:760px){
+    .hero-inner{grid-template-columns:1fr;}
+    .scoreboard-inner{grid-template-columns:1fr 1fr;}
+    .pos-layout{grid-template-columns:1fr;}
+    .skill-grid{grid-template-columns:1fr;}
+    .glossary{grid-template-columns:1fr;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav class="courtnav">
+  <div class="courtnav-inner">
+    <span class="courtnav-mark">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#e1531f" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#e1531f" stroke-width="1.2"/></svg>
+      Basketball
+    </span>
+    <a class="chapter-link" href="#history">History</a>
+    <a class="chapter-link" href="#rules">Rules</a>
+    <a class="chapter-link" href="#court">Court</a>
+    <a class="chapter-link" href="#positions">Positions</a>
+    <a class="chapter-link" href="#skills">Skills</a>
+    <a class="chapter-link" href="#leagues">Leagues</a>
+    <a class="chapter-link" href="#legends">Legends</a>
+    <a class="chapter-link" href="#health">Health</a>
+    <a class="chapter-link" href="#glossary">Glossary</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-inner">
+    <div>
+      <h1>Basket<span>ball</span></h1>
+      <p class="hero-tag">A complete, plain-language reference on the sport: where it came from, how it is played, the court it is played on, and the skills, roles, and terms that make up the game.</p>
+    </div>
+    <svg class="hero-court" viewBox="0 0 360 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a basketball court with a hoop and backboard, drawn in chalk lines under a spotlight">
+      <defs>
+        <radialGradient id="spot" cx="70%" cy="20%" r="70%">
+          <stop offset="0%" stop-color="#3a2a18"/>
+          <stop offset="100%" stop-color="#121014" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="360" height="300" fill="url(#spot)"/>
+      <rect x="20" y="180" width="320" height="100" fill="#20140c" stroke="#8b5a2b" stroke-width="2"/>
+      <line x1="20" y1="180" x2="340" y2="180" stroke="#f1ecdf" stroke-opacity="0.35" stroke-width="2"/>
+      <circle cx="180" cy="230" r="34" fill="none" stroke="#f1ecdf" stroke-opacity="0.35" stroke-width="2"/>
+      <path d="M60 280 A130 130 0 0 1 60 180" fill="none" stroke="#f1ecdf" stroke-opacity="0.35" stroke-width="2"/>
+      <rect x="150" y="40" width="60" height="40" fill="none" stroke="#f1ecdf" stroke-width="2.4"/>
+      <line x1="150" y1="80" x2="210" y2="80" stroke="#f1ecdf" stroke-width="2.4"/>
+      <circle cx="180" cy="92" r="16" fill="none" stroke="#e1531f" stroke-width="3.2"/>
+      <line x1="164" y1="92" x2="196" y2="92" stroke="#e1531f" stroke-width="1.4" stroke-opacity="0.6"/>
+      <circle cx="180" cy="150" r="17" fill="#e1531f" opacity="0.92"/>
+      <path d="M164 150c6 6 26 6 32 0M180 133v34M170.5 137c4 6 15 6 19 0M170.5 163c4-6 15-6 19 0" stroke="#20140c" stroke-width="1.4" fill="none"/>
+    </svg>
+  </div>
+</header>
+
+<div class="scoreboard">
+  <div class="scoreboard-inner">
+    <div><div class="stat-num">1891</div><div class="stat-label">Year invented</div></div>
+    <div><div class="stat-num">5v5</div><div class="stat-label">Players per side, indoors</div></div>
+    <div><div class="stat-num">10ft</div><div class="stat-label">Standard hoop height</div></div>
+    <div><div class="stat-num">48</div><div class="stat-label">Minutes in an NBA game</div></div>
+  </div>
+</div>
+
+<div class="divider" aria-hidden="true">
+  <div class="line"></div>
+  <svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#c48a46" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#c48a46" stroke-width="1"/></svg>
+  <div class="line"></div>
+</div>
+
+<section class="chapter" id="history">
+  <div class="chapter-head">
+    <span class="chapter-num">01</span>
+    <h2>Origins and history</h2>
+  </div>
+  <p class="lede">Basketball is one of the few major sports with a known inventor, a known date, and a known reason for existing. It was built to solve a specific, practical problem — and it spread faster than almost any game before it.</p>
+  <p>In December 1891, physical education instructor James Naismith was asked to invent an indoor game to keep athletes at the International YMCA Training School in Springfield, Massachusetts, active during the cold New England winter. He needed something that avoided the rough tackling of football but still demanded skill and team play. His solution used a soccer ball and two peach baskets nailed to the elevated running track at either end of the gymnasium, along with thirteen basic rules he posted on the wall.</p>
+  <p>Because the baskets kept their bottoms, someone had to climb a ladder to retrieve the ball after every score, until metal hoops and open nets replaced the baskets a few years later. The name "basketball" was suggested by one of Naismith's own students.</p>
+  <figure>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-year">1891</div><p>James Naismith writes the original 13 rules and stages the first game with peach baskets in Springfield, Massachusetts.</p></div>
+      <div class="tl-item"><div class="tl-year">1936</div><p>Basketball becomes an official Olympic sport for men at the Berlin Games.</p></div>
+      <div class="tl-item"><div class="tl-year">1946</div><p>The Basketball Association of America is founded; it merges with a rival league in 1949 to become the National Basketball Association (NBA).</p></div>
+      <div class="tl-item"><div class="tl-year">1976</div><p>Women's basketball is added to the Olympic program at the Montreal Games.</p></div>
+      <div class="tl-item"><div class="tl-year">1996</div><p>The Women's National Basketball Association (WNBA) is founded in the United States.</p></div>
+    </div>
+    <figcaption>A short timeline of turning points in the sport's growth from a gym exercise to a global game.</figcaption>
+  </figure>
+  <p>Today the sport is governed internationally by FIBA (the International Basketball Federation), while national leagues such as the NBA, WNBA, EuroLeague, and CBA (China) run the sport's biggest professional competitions.</p>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="line"></div><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#c48a46" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#c48a46" stroke-width="1"/></svg><div class="line"></div></div>
+
+<section class="chapter" id="rules">
+  <div class="chapter-head">
+    <span class="chapter-num">02</span>
+    <h2>How the game is played</h2>
+  </div>
+  <p class="lede">Strip away the strategy and basketball is simple: get the ball into the opponent's hoop more times than they get it into yours, within a set amount of time, without breaking the rules of contact and ball handling.</p>
+  <p><strong>Teams and objective.</strong> Two teams of five players each (with substitutes on the bench) try to score by shooting the ball through the opponent's elevated hoop. The team with more points when time expires wins.</p>
+  <p><strong>Scoring.</strong> A basket made from inside the three-point line is worth two points. A basket made from beyond the three-point line is worth three points. A free throw, awarded after certain fouls, is worth one point.</p>
+  <p><strong>Game structure.</strong> The NBA plays four 12-minute quarters (48 minutes total). International FIBA games and the WNBA use four 10-minute quarters. college basketball in the United States uses two 20-minute halves. Overtime periods are played if the score is tied when time expires.</p>
+  <p><strong>Moving the ball.</strong> Players can advance the ball only by dribbling (bouncing it while walking or running) or passing it to a teammate. Running with the ball without dribbling is called <em>traveling</em>, and stopping a dribble and then starting it again is called a <em>double dribble</em> — both are violations that hand possession to the other team.</p>
+  <p><strong>The shot clock.</strong> A team must attempt a shot within a fixed time after gaining possession — 24 seconds in the NBA and FIBA competition — or possession passes to the other team. This rule was introduced to stop teams from simply holding the ball to protect a lead.</p>
+  <p><strong>Fouls.</strong> Personal fouls cover illegal contact such as pushing, holding, or blocking a player's path illegally. A player who commits too many fouls in a game is disqualified ("fouls out"). Fouls committed against a player who is shooting typically result in free throws.</p>
+  <div class="callout">
+    <p><strong>Common violations at a glance:</strong> traveling (walking with the ball), double dribble (dribbling, stopping, then dribbling again), goaltending (illegally interfering with a shot on its way down), and backcourt violation (a team returning the ball to its own half after crossing midcourt).</p>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="line"></div><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#c48a46" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#c48a46" stroke-width="1"/></svg><div class="line"></div></div>
+
+<section class="chapter" id="court">
+  <div class="chapter-head">
+    <span class="chapter-num">03</span>
+    <h2>The court and equipment</h2>
+  </div>
+  <p class="lede">Every marking on a basketball court has a purpose — each line defines a rule, a scoring zone, or a boundary.</p>
+  <figure>
+    <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of a basketball court showing the three-point line, key, free-throw circle, and center circle">
+      <rect x="6" y="6" width="388" height="208" fill="#20140c" stroke="#f1ecdf" stroke-width="2"/>
+      <line x1="200" y1="6" x2="200" y2="214" stroke="#f1ecdf" stroke-width="1.6"/>
+      <circle cx="200" cy="110" r="30" fill="none" stroke="#f1ecdf" stroke-width="1.6"/>
+      <!-- left key -->
+      <rect x="6" y="70" width="76" height="80" fill="none" stroke="#f1ecdf" stroke-width="1.6"/>
+      <circle cx="82" cy="110" r="24" fill="none" stroke="#f1ecdf" stroke-width="1.6"/>
+      <path d="M6 20 A150 150 0 0 1 6 200" fill="none" stroke="#e1531f" stroke-width="1.8"/>
+      <circle cx="24" cy="110" r="3.4" fill="#e1531f"/>
+      <!-- right key -->
+      <rect x="318" y="70" width="76" height="80" fill="none" stroke="#f1ecdf" stroke-width="1.6"/>
+      <circle cx="318" cy="110" r="24" fill="none" stroke="#f1ecdf" stroke-width="1.6"/>
+      <path d="M394 20 A150 150 0 0 0 394 200" fill="none" stroke="#e1531f" stroke-width="1.8"/>
+      <circle cx="376" cy="110" r="3.4" fill="#e1531f"/>
+    </svg>
+    <figcaption>A regulation court is divided at midcourt, with a "key" (the painted rectangle), a free-throw circle, and a three-point arc at each end.</figcaption>
+  </figure>
+  <p><strong>Court size.</strong> An NBA and FIBA court is 28.65 by 15.24 metres (94 by 50 feet). The rim sits 3.05 metres (10 feet) above the floor, mounted on a backboard.</p>
+  <p><strong>The three-point line.</strong> Its distance from the hoop varies slightly by level and league — roughly 6.75 metres in FIBA and international play, and 7.24 metres at the top of the arc in the NBA — but its function is the same everywhere: reward longer, harder shots with an extra point.</p>
+  <p><strong>The ball.</strong> A men's basketball is size 7 (about 749–780 grams, roughly 75–76 cm in circumference); a women's basketball is size 6, slightly smaller and lighter. Balls are made of leather or a synthetic composite with a pebbled surface for grip.</p>
+  <p><strong>Other equipment.</strong> Players wear lightweight jerseys and shorts, high-top or low-top athletic shoes built for quick lateral movement, and often ankle or knee supports. A shot clock, game clock, and scoreboard are standard at every organised level of play.</p>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="line"></div><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#c48a46" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#c48a46" stroke-width="1"/></svg><div class="line"></div></div>
+
+<section class="chapter" id="positions">
+  <div class="chapter-head">
+    <span class="chapter-num">04</span>
+    <h2>Positions on the floor</h2>
+  </div>
+  <p class="lede">Traditional basketball uses five positions, numbered one through five, running roughly from smallest and most ball-skilled to tallest and closest to the hoop. Modern teams blend these roles far more than they used to, but the basic framework still shapes how teams are built.</p>
+  <div class="pos-layout">
+    <svg viewBox="0 0 220 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Half court diagram showing typical starting positions for the five basketball roles">
+      <rect x="6" y="6" width="208" height="288" fill="#20140c" stroke="#f1ecdf" stroke-width="2"/>
+      <rect x="66" y="6" width="88" height="110" fill="none" stroke="#f1ecdf" stroke-opacity="0.5" stroke-width="1.4"/>
+      <circle cx="110" cy="116" r="26" fill="none" stroke="#f1ecdf" stroke-opacity="0.5" stroke-width="1.4"/>
+      <path d="M20 6 A170 170 0 0 0 20 260" fill="none" stroke="#e1531f" stroke-opacity="0.5" stroke-width="1.4"/>
+      <circle cx="110" cy="40" r="12" fill="none" stroke="#f1ecdf" stroke-width="2"/>
+      <circle cx="110" cy="230" r="13" fill="#c48a46"/><text x="110" y="235" text-anchor="middle" font-family="Big Shoulders Display" font-size="14" fill="#20140c" font-weight="700">1</text>
+      <circle cx="45" cy="200" r="13" fill="#c48a46"/><text x="45" y="205" text-anchor="middle" font-family="Big Shoulders Display" font-size="14" fill="#20140c" font-weight="700">2</text>
+      <circle cx="175" cy="200" r="13" fill="#c48a46"/><text x="175" y="205" text-anchor="middle" font-family="Big Shoulders Display" font-size="14" fill="#20140c" font-weight="700">3</text>
+      <circle cx="55" cy="110" r="13" fill="#c48a46"/><text x="55" y="115" text-anchor="middle" font-family="Big Shoulders Display" font-size="14" fill="#20140c" font-weight="700">4</text>
+      <circle cx="150" cy="95" r="13" fill="#e1531f"/><text x="150" y="100" text-anchor="middle" font-family="Big Shoulders Display" font-size="14" fill="#20140c" font-weight="700">5</text>
+    </svg>
+    <ul class="pos-list">
+      <li><span class="pos-dot">1</span><div class="pos-text"><b>Point guard</b><span>Usually the smallest, quickest player and the primary ball-handler, responsible for organising plays and setting up teammates.</span></div></li>
+      <li><span class="pos-dot">2</span><div class="pos-text"><b>Shooting guard</b><span>Often the team's most accurate outside shooter, expected to score from mid-range and beyond the three-point line.</span></div></li>
+      <li><span class="pos-dot">3</span><div class="pos-text"><b>Small forward</b><span>A versatile wing player who scores, rebounds, and defends across multiple positions.</span></div></li>
+      <li><span class="pos-dot">4</span><div class="pos-text"><b>Power forward</b><span>A strong interior player who rebounds and scores close to the basket, and increasingly shoots from outside as well.</span></div></li>
+      <li><span class="pos-dot">5</span><div class="pos-text"><b>Centre</b><span>Typically the tallest player on the floor, anchoring defence near the rim and finishing plays close to the basket.</span></div></li>
+    </ul>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="line"></div><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#c48a46" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#c48a46" stroke-width="1"/></svg><div class="line"></div></div>
+
+<section class="chapter" id="skills">
+  <div class="chapter-head">
+    <span class="chapter-num">05</span>
+    <h2>Core skills and techniques</h2>
+  </div>
+  <p class="lede">Every player, regardless of position, builds their game around the same five fundamentals.</p>
+  <div class="skill-grid">
+    <div class="skill-card">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="12" r="6" fill="none" stroke="#e1531f" stroke-width="2.4"/><path d="M20 18v6M20 24l-8 10M20 24l8 10" stroke="#e1531f" stroke-width="2.4" fill="none"/><circle cx="12" cy="34" r="2" fill="#e1531f"/></svg>
+      <h3>Dribbling</h3>
+      <p>Bouncing the ball with one hand while moving, used to advance the ball and evade defenders. Good dribblers keep the ball low and use both hands equally.</p>
+    </div>
+    <div class="skill-card">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="9" fill="none" stroke="#e1531f" stroke-width="2.4"/><path d="M4 20h6M30 20h6M20 4v6M20 30v6" stroke="#e1531f" stroke-width="2"/></svg>
+      <h3>Shooting</h3>
+      <p>Releasing the ball toward the hoop with control and arc. Form typically involves balanced footwork, a straight elbow, and a soft wrist follow-through.</p>
+    </div>
+    <div class="skill-card">
+      <svg viewBox="0 0 40 40"><path d="M6 30 C 14 10, 26 10, 34 30" stroke="#e1531f" stroke-width="2.4" fill="none"/><circle cx="6" cy="30" r="3" fill="#e1531f"/><circle cx="34" cy="30" r="3" fill="#e1531f"/></svg>
+      <h3>Passing</h3>
+      <p>Moving the ball between teammates using chest passes, bounce passes, and overhead passes to create better scoring opportunities than one player could alone.</p>
+    </div>
+    <div class="skill-card">
+      <svg viewBox="0 0 40 40"><rect x="10" y="10" width="20" height="20" fill="none" stroke="#e1531f" stroke-width="2.4"/><path d="M10 20h20M20 10v20" stroke="#e1531f" stroke-width="1.4"/></svg>
+      <h3>Defense</h3>
+      <p>Positioning the body between the opponent and the basket, contesting shots and passing lanes without making illegal contact.</p>
+    </div>
+    <div class="skill-card">
+      <svg viewBox="0 0 40 40"><circle cx="20" cy="14" r="6" fill="none" stroke="#e1531f" stroke-width="2.4"/><path d="M8 34c2-10 8-14 12-14s10 4 12 14" stroke="#e1531f" stroke-width="2.4" fill="none"/></svg>
+      <h3>Rebounding</h3>
+      <p>Gaining possession of the ball after a missed shot, on either the offensive or defensive end, using timing and positioning as much as height.</p>
+    </div>
+    <div class="skill-card">
+      <svg viewBox="0 0 40 40"><path d="M8 30 L20 8 L32 30 Z" fill="none" stroke="#e1531f" stroke-width="2.4"/><circle cx="20" cy="24" r="2.6" fill="#e1531f"/></svg>
+      <h3>Footwork</h3>
+      <p>The pivoting, cutting, and stopping techniques that let a player move, guard, and shoot without committing a violation.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="line"></div><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#c48a46" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#c48a46" stroke-width="1"/></svg><div class="line"></div></div>
+
+<section class="chapter" id="leagues">
+  <div class="chapter-head">
+    <span class="chapter-num">06</span>
+    <h2>Leagues and global competition</h2>
+  </div>
+  <p class="lede">Basketball's professional and international structure spans nearly every continent, with a handful of competitions that define the sport at the highest level.</p>
+  <div class="league-list">
+    <div class="league-row">
+      <div class="yr">NBA</div>
+      <div><h3>National Basketball Association</h3><p>The top men's professional league in the United States and Canada, founded in 1946 and widely regarded as the strongest league in the world by playing talent.</p></div>
+    </div>
+    <div class="league-row">
+      <div class="yr">WNBA</div>
+      <div><h3>Women's National Basketball Association</h3><p>The premier women's professional league in the United States, founded in 1996 and played during the northern-hemisphere summer.</p></div>
+    </div>
+    <div class="league-row">
+      <div class="yr">FIBA</div>
+      <div><h3>International Basketball Federation</h3><p>The global governing body that sets the official rules for international play and organises the Basketball World Cup and Olympic tournaments.</p></div>
+    </div>
+    <div class="league-row">
+      <div class="yr">NCAA</div>
+      <div><h3>College basketball</h3><p>University-level competition in the United States, culminating each spring in the single-elimination tournament widely known as "March Madness."</p></div>
+    </div>
+    <div class="league-row">
+      <div class="yr">Euro</div>
+      <div><h3>EuroLeague</h3><p>The top-tier professional club competition in Europe, drawing teams from multiple countries each season.</p></div>
+    </div>
+    <div class="league-row">
+      <div class="yr">Olympics</div>
+      <div><h3>Olympic basketball</h3><p>Held every four years; the men's tournament has run since 1936 and the women's tournament since 1976.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="line"></div><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#c48a46" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#c48a46" stroke-width="1"/></svg><div class="line"></div></div>
+
+<section class="chapter" id="legends">
+  <div class="chapter-head">
+    <span class="chapter-num">07</span>
+    <h2>Figures who shaped the game</h2>
+  </div>
+  <p class="lede">A handful of players and coaches across different eras are widely credited with changing how the sport is played and viewed.</p>
+  <div class="player-list">
+    <div class="player-card"><div class="player-num">99</div><div><h3>Bill Russell</h3><p>Anchored the Boston Celtics' defense through the 1950s and 60s, winning 11 championships and redefining shot-blocking and team defense.</p></div></div>
+    <div class="player-card"><div class="player-num">33</div><div><h3>Kareem Abdul-Jabbar</h3><p>Long-time NBA career scoring leader for decades, known for the "skyhook" shot, a virtually unblockable one-handed hook.</p></div></div>
+    <div class="player-card"><div class="player-num">32</div><div><h3>Magic Johnson</h3><p>A 6-foot-9-inch point guard who redefined the position by combining size with elite passing and court vision.</p></div></div>
+    <div class="player-card"><div class="player-num">23</div><div><h3>Michael Jordan</h3><p>Won six NBA championships with the Chicago Bulls in the 1990s and is frequently cited as the player who globalised the sport's popularity.</p></div></div>
+    <div class="player-card"><div class="player-num">10</div><div><h3>Sue Bird</h3><p>A long-serving WNBA point guard and Olympic gold medalist, regarded as one of the greatest playmakers in the women's game.</p></div></div>
+    <div class="player-card"><div class="player-num">3</div><div><h3>Diana Taurasi</h3><p>The WNBA's all-time leading scorer, known for her scoring range and longevity across two decades of play.</p></div></div>
+    <div class="player-card"><div class="player-num">6</div><div><h3>LeBron James</h3><p>One of the sport's most durable and statistically decorated players, holding the NBA's all-time career scoring record.</p></div></div>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="line"></div><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#c48a46" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#c48a46" stroke-width="1"/></svg><div class="line"></div></div>
+
+<section class="chapter" id="health">
+  <div class="chapter-head">
+    <span class="chapter-num">08</span>
+    <h2>Health benefits of playing</h2>
+  </div>
+  <p class="lede">Basketball combines aerobic and anaerobic exercise, making it an efficient full-body workout as well as a team sport.</p>
+  <ul>
+    <li><strong>Cardiovascular fitness:</strong> The constant mix of running, sprinting, and jumping raises heart rate and builds endurance over time.</li>
+    <li><strong>Coordination and balance:</strong> Dribbling, pivoting, and shooting develop hand-eye coordination and body control.</li>
+    <li><strong>Bone and muscle strength:</strong> As a weight-bearing sport involving jumping and lateral movement, it helps build bone density and leg and core strength.</li>
+    <li><strong>Social and mental benefits:</strong> As a team sport, it builds communication and cooperation skills, and regular play is commonly associated with reduced stress and improved mood.</li>
+    <li><strong>Accessible entry point:</strong> A single hoop and ball are enough to practise many of the sport's basic skills alone, making it easier to pick up than sports that require more equipment or players.</li>
+  </ul>
+  <div class="callout">
+    <p>As with any high-impact sport, warming up, using supportive footwear, and learning proper landing technique after jumps can reduce the risk of common injuries such as ankle sprains and knee strain.</p>
+  </div>
+</section>
+
+<div class="divider" aria-hidden="true"><div class="line"></div><svg class="ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#c48a46" stroke-width="1.6"/><path d="M2 12h20M12 2v20M4.5 5.5c3 3 3 10 0 13M19.5 5.5c-3 3-3 10 0 13" stroke="#c48a46" stroke-width="1"/></svg><div class="line"></div></div>
+
+<section class="chapter" id="glossary">
+  <div class="chapter-head">
+    <span class="chapter-num">09</span>
+    <h2>Glossary of court terms</h2>
+  </div>
+  <p class="lede">A short reference to terms you'll hear in almost any broadcast or pickup game.</p>
+  <dl class="glossary">
+    <div class="gloss-item"><dt>Assist</dt><dd>A pass that directly leads to a teammate scoring.</dd></div>
+    <div class="gloss-item"><dt>Rebound</dt><dd>Gaining possession of the ball after a missed shot.</dd></div>
+    <div class="gloss-item"><dt>Turnover</dt><dd>Losing possession of the ball without attempting a shot, through a violation, steal, or bad pass.</dd></div>
+    <div class="gloss-item"><dt>Steal</dt><dd>Taking the ball away from the opposing team without fouling.</dd></div>
+    <div class="gloss-item"><dt>Pick and roll</dt><dd>A common play where one player blocks (screens) a defender for a teammate, then moves toward the basket to receive a pass.</dd></div>
+    <div class="gloss-item"><dt>Zone defense</dt><dd>A defensive scheme where players guard an area of the court rather than a specific opponent.</dd></div>
+    <div class="gloss-item"><dt>Man-to-man</dt><dd>A defensive scheme where each defender is responsible for guarding one specific opponent.</dd></div>
+    <div class="gloss-item"><dt>Fast break</dt><dd>A quick offensive move down the court before the defense can get organised, usually after a steal or rebound.</dd></div>
+    <div class="gloss-item"><dt>Air ball</dt><dd>A shot that misses the rim, backboard, and net entirely.</dd></div>
+    <div class="gloss-item"><dt>Double-double</dt><dd>A game in which a player reaches double digits in two statistical categories, such as points and rebounds.</dd></div>
+    <div class="gloss-item"><dt>Screen</dt><dd>Legally standing in a defender's path to free up a teammate.</dd></div>
+    <div class="gloss-item"><dt>Free throw</dt><dd>An unguarded shot from the free-throw line, awarded after certain fouls, worth one point.</dd></div>
+  </dl>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>This page is a general, plain-language reference covering the history, rules, court, positions, skills, competitions, and terminology of basketball. Rule details such as shot-clock length and quarter duration can vary slightly between leagues (NBA, FIBA, NCAA, WNBA) — always check the specific league's current rulebook for exact figures.</p>
+  </div>
+</footer>
+
+</body>
+</html>
